@@ -1,0 +1,43 @@
+[cloudera@quickstart ~]$ hdfs dfs -copyFromLocal /home/cloudera/Desktop/hive/vim1.txt /user/cloudera
+[cloudera@quickstart ~]$ hdfs dfs -copyFromLocal /home/cloudera/Desktop/hive/vim2.txt /user/cloudera
+[cloudera@quickstart ~]$ hdfs dfs -copyFromLocal /home/cloudera/Desktop/hive/vim3.txt /user/cloudera
+[cloudera@quickstart ~]$ hdfs dfs -copyFromLocal /home/cloudera/Desktop/hive/vim4.txt /user/cloudera
+[cloudera@quickstart ~]$ hdfs dfs -ls
+Found 4 items
+-rw-r--r--   1 cloudera cloudera     736519 2023-01-07 12:13 vim1.txt
+-rw-r--r--   1 cloudera cloudera     770324 2023-01-07 12:14 vim2.txt
+-rw-r--r--   1 cloudera cloudera     843205 2023-01-07 12:14 vim3.txt
+-rw-r--r--   1 cloudera cloudera     697960 2023-01-07 12:14 vim4.txt
+[cloudera@quickstart ~]$ hdfs dfs -getmerge -nl vim1.txt vim2.txt vim3.txt vim4.txt /home/cloudera/Desktop/hive/all.txt
+[cloudera@quickstart ~]$ hdfs dfs -chmod 764 vim1.txt
+[cloudera@quickstart ~]$ hdfs dfs -chmod 764 vim2.txt
+[cloudera@quickstart ~]$ hdfs dfs -chmod 764 vim3.txt
+[cloudera@quickstart ~]$ hdfs dfs -chmod 764 vim4.txt
+[cloudera@quickstart ~]$ hdfs dfs -ls
+Found 4 items
+-rwxrw-r--   1 cloudera cloudera     736519 2023-01-07 12:13 vim1.txt
+-rwxrw-r--   1 cloudera cloudera     770324 2023-01-07 12:14 vim2.txt
+-rwxrw-r--   1 cloudera cloudera     843205 2023-01-07 12:14 vim3.txt
+-rwxrw-r--   1 cloudera cloudera     697960 2023-01-07 12:14 vim4.txt
+[cloudera@quickstart ~]$ hdfs dfs -du -h vim1.txt
+719.3 K  719.3 K  vim1.txt
+[cloudera@quickstart ~]$ hdfs dfs -setrep -w 2
+-setrep: Not enough arguments: expected 2 but got 1
+Usage: hadoop fs [generic options] -setrep [-R] [-w] <rep> <path> ...
+[cloudera@quickstart ~]$ hdfs dfs -setrep -w 2 /user/cloudera
+Replication 2 set: /user/cloudera/vim1.txt
+Replication 2 set: /user/cloudera/vim2.txt
+Replication 2 set: /user/cloudera/vim3.txt
+Replication 2 set: /user/cloudera/vim4.txt
+Waiting for /user/cloudera/vim1.txt .............................................................^Z
+[1]+  Stopped                 hdfs dfs -setrep -w 2 /user/cloudera
+[cloudera@quickstart ~]$ hdfs dfs -setrep 2 /user/cloudera
+Replication 2 set: /user/cloudera/vim1.txt
+Replication 2 set: /user/cloudera/vim2.txt
+Replication 2 set: /user/cloudera/vim3.txt
+Replication 2 set: /user/cloudera/vim4.txt
+[cloudera@quickstart ~]$ hdfs dfs -du -h vim1.txt
+719.3 K  1.4 M  vim1.txt
+[cloudera@quickstart ~]$ hdfs dfs -cat vim2.txt | wc -l
+3294
+[cloudera@quickstart ~]$ 
